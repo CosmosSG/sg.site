@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sg Prof</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' >
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.0/css/all.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark py-1 fixed-top">
+      <div class="container"> <!-- <div class="container-fluid"> -->
+        <a class="navbar-brand" href="#">
+          H.S Site
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+			<div class="collapse navbar-collapse " id="navbarSupportedContent" style="justify-content: center; padding-right: 100px;">
+				<ul class="navbar-nav mb-2 mb-lg-0"> <!-- me-auto 左 : ms-auto 右-->
+					<li class="nav-item">
+						<a class="nav-link active" href="#">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="document.html">Document</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Links
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li><a class="dropdown-item" href="https://www.dendai.ac.jp/" target="_blank" rel="noopener noreferrer">東京電機大学 HP</a></li>
+							<li><a class="dropdown-item" href="https://github.com/CosmosSG?tab=repositories" target="_blank" rel="noopener noreferrer">SG Githab</a></li>
+							<li><hr class="dropdown-divider"></li>
+							<li><a class="dropdown-item" href="" target="_blank" rel="noopener noreferrer"></a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+        </div>
+    </nav>
+
+    <!-- hero section -->
+    <div class="hero vh-100 d-flex align-items-center" id="home">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-7 col-md-7 mx-auto text-left">
+						<h1 style="font-family: 'Pacifico', cursive;">Profile</h1>
+						<p class="my-4">
+							I am a science student attending Tokyo Denki University. 
+							<br>
+							Here is a brief self-introduction.
+						</p>
+						<table>
+							<tr>
+								<td>Name: </td>
+								<td>菅野 晴聖 (Harumasa SUGANO)</td>
+							</tr>
+							<tr>
+								<td>Birthday:</td>
+								<td>February 1st</td>
+							</tr>
+							<tr>
+								<td>Age:</td>
+								<td>20</td>
+							</tr>
+							<tr>
+								<td>Univ:</td>
+								<td>Tokyo Denki University</td>
+							</tr>
+							<tr>
+								<td>Faculty:</td>
+								<td>システムデザイン工学部</td>
+							</tr>
+							<tr>
+								<td>Department:　</td>
+								<td>情報システム工学科</td>
+							</tr>
+							<tr>
+								<td>mail:</td>
+								<td>21aj066@ms.dendai.ac.jp</td>
+							</tr>
+						</table>
+						<br>
+					</div>
+					<div class="col-lg-3 col-md-4 mx-auto" style="display: flex;justify-content: center;align-items: center;">
+						<div class="photo-face">
+							<img src="/img/HarumasaSUGANO.jpg" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+    </div>
+
+    <!-- product section -->
+    <section id="products">
+      <div class="container">
+				<div class="row">
+					<div class="col-lg-6 mx-auto text-center pb-3">
+						<h6 class="pro-title">LIST OF PRODUCTION</h6>
+						<h1>製作物一覧</h1>
+						<p>
+							Here are some of the things we have produced throughout our university life. 
+							<br>
+							Click to see the details.
+						</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4 col-md-6">
+						<a href="" id="linkColor">
+							<div class="product card-effect mb-4">
+								<img src="/img/sim_excel.jpg" alt="" class="pro-picture">
+								<h5 class="mt-4 mb-2"><b>SIM管理ツール</b></h5>
+								<p>ワイモバイル株式会社さんのほうでアルバイトをしていた際に作成したExcelを使用したツールです。</p>
+								<p class="pro-tagu">#Excel #SIM管理 #ツール</p>
+								<p class="text-end">Learn more ></p>
+							</div>
+						</a>
+					</div>
+					<div class="col-lg-4 col-md-6">
+						<a href="" id="linkColor">
+							<div class="product card-effect mb-4">
+								<img src="/img/online_classes.jpg" alt="" class="pro-picture">
+								<h5 class="mt-4 mb-2"><b>zoom自動接続システム</b></h5>
+								<p>オンライン授業の時にシラバスからzoomに接続する手間を省くためにPythonで製作したシステムです。</p>
+								<p class="pro-tagu">#Python #Zoom自動接続 #システム</p>
+								<p class="text-end">Learn more ></p>
+							</div>
+						</a>
+					</div>
+					<div class="col-lg-4 col-md-6">
+						<a href="https://www.sejuku.net/blog/125299" id="linkColor">
+							<div class="product card-effect mb-4">
+								<img src="/img/tkinter.jpg" alt="" class="pro-picture">
+								<h5 class="mt-4 mb-2"><b>ノーコードデータ解析</b></h5>
+								<p>多変量解析という授業で主成分分析、単回帰・重回帰分析などを習ったのをきっかけに製作しているものです。(製作中)</p>
+								<p class="pro-tagu">#Python #データ解析 #ノーコード #tkinter</p>
+								<p class="text-end">Learn more ></p>
+							</div>
+						</a>
+					</div>
+					<div class="col-lg-4 col-md-6">
+						<a href="https://www.sejuku.net/blog/125299" id="linkColor">
+							<div class="product card-effect mb-4">
+								<img src="/img/password.jpg" alt="" class="pro-picture">
+								<h5 class="mt-4 mb-2"><b>パスワード管理</b></h5>
+								<p>今までExcelを用いてパスワード管理していたのをプログラミングを使ってできないかと考え、製作したものです。</p>
+								<p class="pro-tagu">#Python #パスワード管理 #システム</p>
+								<p class="text-end">Learn more ></p>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+    <!-- footer section -->
+    <footer class="bg-dark text-center text-white">
+        <div class="container">
+            <div class="pt-5">
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.facebook.com/" role="button"><i class="fab fa-facebook-f"></i></a>
+                <a class="btn btn-outline-light btn-floating m-1" href="https://twitter.com/home?lang=ja" role="button"><i class="fab fa-twitter"></i></a>
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.google.co.jp/" role="button"><i class="fab fa-google"></i></a>
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/__h_s._.g/" role="button"><i class="fab fa-instagram"></i></a>
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-linkedin-in"></i></a>
+                <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/DENDAI-suga-h" role="button"><i class="fab fa-github"></i></a>
+            </div>
+            <div class="pt-4">
+                <div class="row">
+                    <div class="col-xl-1"></div>
+                    <div class="col-xl-4 col-lg-12 text-start card border border-0 bg-dark pt-3 pb-3">
+                        <h5 class="card-header ms-1">Information</h5>
+                        <p class="pt-1">
+                            <i class="fas fa-school card-body"></i>
+                            Tokyo Denki University
+                        </p>
+                        <p>
+                            <i class="fas fa-map-marker-alt card-body"></i>
+                            5 Senjuasahicho, Adachi-ku, Tokyo
+                        </p>
+                        <p>
+                            <i class="fas fa-envelope card-body"></i>
+                            21aj066□ms.dendai.ac.jp
+                        </p>
+                    </div>
+                    <div class="col-xl-2"></div>
+                    <div class="col-xl-4 col-lg-12 text-start card border border-0 bg-dark pt-3 pb-3">
+                        <h5 class="card-header ms-1">External Links</h5>
+                        <a href="https://developer.apple.com/jp/app-store/review/guidelines/" id="footer_a"><p class="card-body" style="margin: 0;">App Store ガイドライン</p></a>
+                        <a href="https://play.google.com/intl/ja/about/developer-content-policy/" id="footer_a"><p class="card-body" style="margin: 0;">Google Play ポリシーセンター</p></a>
+                        <a href="https://www.microsoft.com/ja-jp/edge/features/image-creator?form=MT00D8" id="footer_a"><p class="card-body" style="margin: 0;">Bing Image Creator</p></a>
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <a href="#" id="page-top">TOP</a>
+    <script>
+      // ハンバーガーメニューを閉じる
+      document.addEventListener("DOMContentLoaded", function() {
+        var navbarToggler = document.querySelector(".navbar-toggler");
+        var navbarCollapse = document.querySelector(".navbar-collapse");
+      
+        document.body.addEventListener("click", function(event) {
+          if (navbarCollapse.classList.contains("show") && !event.target.closest(".navbar")) {
+            navbarToggler.click();
+          }
+        });
+      });
+      window.addEventListener('scroll', function() {
+        var pageTopElement = document.getElementById('page-top');
+        var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (scrollPosition > 500) {
+          pageTopElement.style.bottom = '20px'; // 要素を表示するためにbottomプロパティを変更
+        } else {
+          pageTopElement.style.bottom = '-60px'; // 要素を隠すためにbottomプロパティを変更
+        }
+      });
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

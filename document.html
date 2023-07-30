@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H.S Site</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' >
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.0/css/all.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+			background-image: url(md_/back1.jpg);
+			background-position: center;
+			background-size: cover;
+			background-attachment: fixed;
+    }
+		.navbar-dark .navbar-toggler {
+				color: rgba(0, 0, 0, 0);
+				border-color: rgba(0, 0, 0, 0);
+		}
+		.navbar-toggler-icon {
+				width: 1em;
+				height: 1em;
+		}
+		.navbar-brand {
+				font-family: cursive;
+				text-shadow: 0 0 15px #ffffff;
+		}
+		.navbar .nav-link {
+				font-size: 12px;
+				font-weight: 500;
+		}
+
+		.navbar {
+				background-color: rgba(0, 0, 0, 0.687);
+				border-top: solid 1px #ffffff;
+				border-bottom: solid 1px #ffffff;
+				border-radius: 0.5rem;
+				box-shadow: 20px 2px 25px rgba(255, 255, 255, 0.5);
+				
+		}
+		@media (min-width: 992px) {
+			.navbar-expand-lg .navbar-collapse {
+					padding-top: 0!important;
+			}
+		}
+
+		.navbar-collapse {
+			padding-top: 10px;
+		}
+
+		.dropdown-menu {
+			background-color: rgba(0, 0, 0, 0.519);
+			border-top: solid 1px #ffffff;
+			border-bottom: solid 1px #ffffff;
+			color: white;
+		}
+		.dropdown-menu[data-bs-popper] {
+			margin-top: 8px;
+		}
+		.dropdown-divider {
+			margin: 5px 10px;
+		}
+
+		.dropdown-item {
+			color: rgba(255,255,255,.75);
+			font-size: 12px;
+		}
+    .container2 {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: rgba(22, 31, 45, 0.739);
+      color: #fff;
+      margin-top: 50px;
+      padding: 20px;
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      transition: transform 0.3s ease;
+      z-index: 1;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: white;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 30px 0px 0px 60px;
+			margin-top: 50px;
+      margin-left: 250px;
+      transition: margin-left 0.3s ease;
+      background-color: rgb(13, 17, 23);
+      height: auto;
+    }
+
+		.main-content iframe {
+			height: 99%;
+			width: 99%;
+			overflow-y: auto;
+		}
+
+    .nav-bar {
+      background-color: #000;
+      color: #fff;
+      padding: 10px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+    }
+
+    /* メインコンテンツとサイドバーをスライドさせるためのクラス */
+    .slide-out .sidebar {
+      transform: translateX(-230px);
+    }
+
+    .slide-out .main-content {
+      margin-left: 20px;
+    }
+
+		.side-title {
+		}
+
+		.side-text {
+			padding-left: 10px;
+		}
+
+  </style>
+</head>
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark py-1 fixed-top">
+      <div class="container"> <!-- <div class="container-fluid"> -->
+        <a class="navbar-brand" href="#">
+          H.S Site
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+			<div class="collapse navbar-collapse " id="navbarSupportedContent" style="justify-content: center; padding-right: 100px;">
+				<ul class="navbar-nav mb-2 mb-lg-0"> <!-- me-auto 左 : ms-auto 右-->
+					<li class="nav-item">
+						<a class="nav-link" href="index.html">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" href="#">Document</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Links
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li><a class="dropdown-item" href="https://www.dendai.ac.jp/" target="_blank" rel="noopener noreferrer">東京電機大学 HP</a></li>
+							<li><a class="dropdown-item" href="https://github.com/CosmosSG?tab=repositories" target="_blank" rel="noopener noreferrer">SG Githab</a></li>
+							<li><hr class="dropdown-divider"></li>
+							<li><a class="dropdown-item" href="" target="_blank" rel="noopener noreferrer"></a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+      </div>
+  </nav>
+	<div class="container2">
+		<div class="sidebar">
+			<!-- サイドバーのコンテンツをここに追加 -->
+			<p class="side-title">一覧</p>
+			<div class="side-text">
+				<a href="#">Logistic Regression</a>
+
+			</div>
+		</div>
+		<div class="main-content">
+			<!-- メインコンテンツのコンテンツをここに追加 -->
+			<iframe src="LogisticRegression.html" frameBorder="0"></iframe>
+		</div>
+  </div>
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script>
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.addEventListener('click', (event) => {
+      if (event.target === sidebar) {
+        const container = document.querySelector('.container2');
+        container.classList.toggle('slide-out');
+			}
+    });
+  </script>
+</body>
+</html>

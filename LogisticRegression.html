@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LogisticRegression.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+    /* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+    /*---------------------------------------------------------------------------------------------
+     *  Copyright (c) Microsoft Corporation. All rights reserved.
+     *  Licensed under the MIT License. See License.txt in the project root for license information.
+     *--------------------------------------------------------------------------------------------*/
+    
+    body {
+        color-scheme: dark;
+        -ms-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
+        margin: 0;
+        color: #c9d1d9;
+        background-color: rgb(13, 17, 23);
+        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+        font-size: 16px;
+        line-height: 1.5;
+        word-wrap: break-word;
+    }
+    
+    body a {
+      background-color: transparent;
+      color: #58a6ff;
+      text-decoration: none;
+    }
+    
+    #code-csp-warning {
+        position: fixed;
+        top: 0;
+        right: 0;
+        color: rgb(255, 255, 255);
+        margin: 16px;
+        text-align: center;
+        font-size: 12px;
+        font-family: sans-serif;
+        background-color:#444444;
+        cursor: pointer;
+        padding: 6px;
+        box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+    }
+    
+    #code-csp-warning:hover {
+        text-decoration: none;
+        background-color:#007acc;
+        box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+    }
+    
+    body.scrollBeyondLastLine {
+        margin-bottom: calc(100vh - 22px);
+    }
+    
+    body.showEditorSelection .code-line {
+        position: relative;
+    }
+    
+    body.showEditorSelection .code-active-line:before,
+    body.showEditorSelection .code-line:hover:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: -12px;
+        height: 100%;
+    }
+    
+    body.showEditorSelection li.code-active-line:before,
+    body.showEditorSelection li.code-line:hover:before {
+        left: -30px;
+    }
+    
+    .vscode-light.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(0, 0, 0, 0.15);
+    }
+    
+    .vscode-light.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(0, 0, 0, 0.40);
+    }
+    
+    .vscode-light.showEditorSelection .code-line .code-line:hover:before {
+        border-left: none;
+    }
+    
+    .vscode-dark.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(255, 255, 255, 0.4);
+    }
+    
+    .vscode-dark.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(255, 255, 255, 0.60);
+    }
+    
+    .vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+        border-left: none;
+    }
+    
+    .vscode-high-contrast.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(255, 160, 0, 0.7);
+    }
+    
+    .vscode-high-contrast.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(255, 160, 0, 1);
+    }
+    
+    .vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+        border-left: none;
+    }
+    
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+    
+    a {
+        text-decoration: none;
+    }
+    
+    a:hover {
+        text-decoration: underline;
+    }
+    
+    a:focus,
+    input:focus,
+    select:focus,
+    textarea:focus {
+        outline: 1px solid -webkit-focus-ring-color;
+        outline-offset: -1px;
+    }
+    
+    hr {
+        border: 0;
+        height: 2px;
+        border-bottom: 2px solid;
+    }
+    
+    h1 {
+        padding-bottom: 0.3em;
+        line-height: 1.2;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+    }
+    
+    h1, h2, h3 {
+        font-weight: normal;
+    }
+    
+    table {
+        border-collapse: collapse;
+    }
+    
+    table > thead > tr > th {
+        text-align: left;
+        border-bottom: 1px solid;
+    }
+    
+    table > thead > tr > th,
+    table > thead > tr > td,
+    table > tbody > tr > th,
+    table > tbody > tr > td {
+        padding: 5px 10px;
+    }
+    
+    table > tbody > tr + tr > td {
+        border-top: 1px solid;
+    }
+    
+    blockquote {
+        margin: 0 7px 0 5px;
+        padding: 0 16px 0 10px;
+        border-left-width: 5px;
+        border-left-style: solid;
+    }
+    
+    code {
+        font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
+        font-size: 12px;
+    }
+    
+    body.wordWrap pre {
+        white-space: pre-wrap;
+    }
+    
+    pre:not(.hljs),
+    pre.hljs code > div {
+        padding: 16px;
+        border-radius: 3px;
+        overflow: auto;
+    }
+    
+    pre code {
+        color: white;
+        tab-size: 4;
+    
+        margin-top: 0;
+        margin-bottom: 0;
+        font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
+        font-size: 12px;
+        word-wrap: normal;
+    }
+    
+    
+    /** Theming */
+    
+    .vscode-light pre {
+        background-color: rgba(220, 220, 220, 0.4);
+    }
+    
+    .vscode-dark pre {
+        background-color: rgba(10, 10, 10, 0.4);
+    }
+    
+    .vscode-high-contrast pre {
+        background-color: rgb(0, 0, 0);
+    }
+    
+    .vscode-high-contrast h1 {
+        border-color: rgb(0, 0, 0);
+    }
+    
+    .vscode-light table > thead > tr > th {
+        border-color: rgba(0, 0, 0, 0.69);
+    }
+    
+    .vscode-dark table > thead > tr > th {
+        border-color: rgba(255, 255, 255, 0.69);
+    }
+    
+    .vscode-light h1,
+    .vscode-light hr,
+    .vscode-light table > tbody > tr + tr > td {
+        border-color: rgba(0, 0, 0, 0.18);
+    }
+    
+    .vscode-dark h1,
+    .vscode-dark hr,
+    .vscode-dark table > tbody > tr + tr > td {
+        border-color: rgba(255, 255, 255, 0.18);
+    }
+    
+    </style>
+    
+    <style>
+    /* Tomorrow Theme */
+    /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+    /* Original theme - https://github.com/chriskempson/tomorrow-theme */
+    
+    /* Tomorrow Comment */
+    .hljs-comment,
+    .hljs-quote {
+        color: #8e908c;
+    }
+    
+    /* Tomorrow Red */
+    .hljs-variable,
+    .hljs-template-variable,
+    .hljs-tag,
+    .hljs-name,
+    .hljs-selector-id,
+    .hljs-selector-class,
+    .hljs-regexp,
+    .hljs-deletion {
+        color: #c82829;
+    }
+    
+    /* Tomorrow Orange */
+    .hljs-number,
+    .hljs-built_in,
+    .hljs-builtin-name,
+    .hljs-literal,
+    .hljs-type,
+    .hljs-params,
+    .hljs-meta,
+    .hljs-link {
+        color: #f5871f;
+    }
+    
+    /* Tomorrow Yellow */
+    .hljs-attribute {
+        color: #eab700;
+    }
+    
+    /* Tomorrow Green */
+    .hljs-string,
+    .hljs-symbol,
+    .hljs-bullet,
+    .hljs-addition {
+        color: #718c00;
+    }
+    
+    /* Tomorrow Blue */
+    .hljs-title,
+    .hljs-section {
+        color: #4271ae;
+    }
+    
+    /* Tomorrow Purple */
+    .hljs-keyword,
+    .hljs-selector-tag {
+        color: #8959a8;
+    }
+    
+    .hljs {
+        display: block;
+        overflow-x: auto;
+        color: #4d4d4c;
+        padding: 0.5em;
+    }
+    
+    .hljs-emphasis {
+        font-style: italic;
+    }
+    
+    .hljs-strong {
+        font-weight: bold;
+    }
+    </style>
+    
+    <style>
+    /*
+     * Markdown PDF CSS
+     */
+    
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+        padding: 0 12px;
+    }
+    
+    pre {
+        background-color: rgb(22, 27, 34);
+        border-radius: 3px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+    }
+    
+    pre:not(.hljs) {
+        padding: 23px;
+        line-height: 19px;
+    }
+    
+    blockquote {
+        background: rgba(127, 127, 127, 0.1);
+        border-color: rgba(0, 122, 204, 0.5);
+    }
+    
+    .emoji {
+        height: 1.4em;
+    }
+    
+    code {
+        font-size: 14px;
+        line-height: 19px;
+    }
+    
+    /* for inline code */
+    :not(pre):not(.hljs) > code {
+        color: #C9AE75; /* Change the old color so it seems less like an error */
+        font-size: inherit;
+    }
+    
+    /* Page Break : use <div class="page"/> to insert page break
+    -------------------------------------------------------- */
+    .page {
+        page-break-after: always;
+    }
+    
+    </style>
+
+    <style>
+        @media screen and (min-width: 400px) {
+            .se {
+                display: none;
+            }
+            ::-webkit-scrollbar {
+                height: 0px;
+            }
+        
+            ::-webkit-scrollbar-track {
+                background: rgb(13, 17, 23);
+            }
+            ::-webkit-scrollbar-thumb {
+                background-image: linear-gradient(180deg, #D0368A 0%, #708AD4 99%);
+                box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
+                border-radius: 100px;
+            }
+        }
+        
+    </style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<!-- omit in toc -->
+<h1 id="%E3%83%AD%E3%82%B8%E3%82%B9%E3%83%86%E3%82%A3%E3%83%83%E3%82%AF%E5%9B%9E%E5%B8%B0-logistic-regression"><strong>ロジスティック回帰 (Logistic Regression)</strong></h1>
+<div style="text-align: right;">
+    <p>Update: July 27, 2023</p>
+    <p>H.S</p>
+</div>
+<!-- omit in toc -->
+<h2 id="%E7%9B%AE%E6%AC%A1"><strong>目次</strong></h2>
+<ul>
+<li><a href="#%E7%9B%AE%E6%AC%A1"><strong>目次</strong></a></li>
+<li><a href="#%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%8F%AF%E8%A6%96%E5%8C%96"><strong>データの可視化</strong></a>
+<ul>
+<li><a href="#1-csv%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF"><strong>1. CSVファイルの読み込み</strong></a>
+<ul>
+<li><a href="#%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88">ライブラリのインポート</a></li>
+<li><a href="#%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF">ファイルの読み込み</a></li>
+<li><a href="#%E7%89%B9%E5%BE%B4%E9%87%8F%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%88%86%E9%A1%9E-%E5%90%84%E8%A1%8C%E3%81%AE%E4%B8%80%E7%95%AA%E5%8F%B3%E5%81%B4%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8C%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA%E3%82%92%E7%A4%BA%E3%81%99%E5%A0%B4%E5%90%88">特徴量データとカテゴリデータの分類 (各行の一番右側のデータがカテゴリを示す場合)</a></li>
+</ul>
+</li>
+<li><a href="#2-pca%E3%81%AB%E3%82%88%E3%82%8B%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E6%AC%A1%E5%85%83%E5%89%8A%E6%B8%9B"><strong>2. PCAによるデータの次元削減</strong></a>
+<ul>
+<li><a href="#%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88-1">ライブラリのインポート</a></li>
+<li><a href="#%E6%AC%A1%E5%85%83%E5%89%8A%E6%B8%9B">次元削減</a></li>
+</ul>
+</li>
+<li><a href="#3-matplotlib%E3%82%92%E7%94%A8%E3%81%84%E3%81%9F%E5%8F%AF%E8%A6%96%E5%8C%96"><strong>3. Matplotlibを用いた可視化</strong></a>
+<ul>
+<li><a href="#%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88-2">ライブラリのインポート</a></li>
+<li><a href="#%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA%E5%90%8D%E3%81%A8%E8%89%B2%E3%81%AE%E6%8C%87%E5%AE%9A">カテゴリ名と色の指定</a></li>
+<li><a href="#2%E6%AC%A1%E5%85%83%E3%81%A7%E3%81%AE%E6%8F%8F%E5%86%99">2次元での描写</a></li>
+<li><a href="#3%E6%AC%A1%E5%85%83%E3%81%A7%E3%81%AE%E6%8F%8F%E5%86%99">3次元での描写</a></li>
+</ul>
+</li>
+<li><a href="#4-%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%8F%AF%E8%A6%96%E5%8C%96%E3%81%AE%E5%85%A8%E4%BD%93%E3%81%AE%E3%82%BD%E3%83%BC%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%89"><strong>4. データの可視化の全体のソースコード</strong></a>
+<ul>
+<li><a href="#2%E6%AC%A1%E5%85%83%E3%81%A7%E5%8F%AF%E8%A6%96%E5%8C%96">2次元で可視化</a></li>
+<li><a href="#2%E6%AC%A1%E5%85%83%E3%81%A7%E5%8F%AF%E8%A6%96%E5%8C%96-%E5%BF%9C%E7%94%A8">2次元で可視化 (応用)</a></li>
+<li><a href="#3%E6%AC%A1%E5%85%83%E3%81%A7%E5%8F%AF%E8%A6%96%E5%8C%96">3次元で可視化</a></li>
+<li><a href="#3%E6%AC%A1%E5%85%83%E3%81%A7%E5%8F%AF%E8%A6%96%E5%8C%96-%E5%BF%9C%E7%94%A8">3次元で可視化 (応用)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%88%86%E9%A1%9E-%E5%B9%B3%E5%9D%87%E5%88%86%E9%A1%9E%E7%B2%BE%E5%BA%A6%E3%81%AE%E7%AE%97%E5%87%BA"><strong>分類 (平均分類精度の算出)</strong></a>
+<ul>
+<li><a href="#1-csv%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF-1"><strong>1. CSVファイルの読み込み</strong></a>
+<ul>
+<li><a href="#%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88-3">ライブラリのインポート</a></li>
+<li><a href="#%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF-1">ファイルの読み込み</a></li>
+<li><a href="#%E7%89%B9%E5%BE%B4%E9%87%8F%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%88%86%E9%A1%9E-%E5%90%84%E8%A1%8C%E3%81%AE%E4%B8%80%E7%95%AA%E5%8F%B3%E5%81%B4%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8C%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA%E3%82%92%E7%A4%BA%E3%81%99%E5%A0%B4%E5%90%88-1">特徴量データとカテゴリデータの分類 (各行の一番右側のデータがカテゴリを示す場合)</a></li>
+</ul>
+</li>
+<li><a href="#2-%E5%88%86%E9%A1%9E%E7%B2%BE%E5%BA%A6%E3%82%92%E6%A0%BC%E7%B4%8D%E3%81%99%E3%82%8B%E5%A4%89%E6%95%B0%E3%81%AE%E4%BD%9C%E6%88%90"><strong>2. 分類精度を格納する変数の作成</strong></a></li>
+<li><a href="#3-%E5%90%84%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA%E3%81%94%E3%81%A8%E3%81%AE%E3%83%86%E3%82%B9%E3%83%88%E3%83%87%E3%83%BC%E3%82%BF%E5%AD%A6%E7%BF%92%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%88%86%E5%89%B2"><strong>3. 各カテゴリごとのテストデータ・学習データの分割</strong></a>
+<ul>
+<li><a href="#%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88-4">ライブラリのインポート</a></li>
+<li><a href="#%E8%A9%A6%E8%A1%8C%E5%9B%9E%E6%95%B0%E3%81%AE%E5%AE%A3%E8%A8%80">試行回数の宣言</a></li>
+<li><a href="#%E8%A9%A6%E8%A1%8C%E5%9B%9E%E6%95%B0%E5%88%86%E5%90%84%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA%E3%81%94%E3%81%A8%E3%81%AB%E3%83%86%E3%82%B9%E3%83%88%E3%83%87%E3%83%BC%E3%82%BF%E5%AD%A6%E7%BF%92%E3%83%87%E3%83%BC%E3%82%BF%E3%82%9228%E3%81%AB%E5%88%86%E5%89%B2">試行回数分、各カテゴリごとにテストデータ:学習データを2:8に分割</a></li>
+</ul>
+</li>
+<li><a href="#4-%E3%83%AD%E3%82%B8%E3%82%B9%E3%83%86%E3%82%A3%E3%83%83%E3%82%AF%E5%9B%9E%E5%B8%B0%E3%82%92%E7%94%A8%E3%81%84%E3%81%9F%E5%88%86%E9%A1%9E%E7%B2%BE%E5%BA%A6%E3%81%AE%E7%AE%97%E5%87%BA"><strong>4. ロジスティック回帰を用いた分類精度の算出</strong></a>
+<ul>
+<li><a href="#%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88-5">ライブラリのインポート</a></li>
+<li><a href="#logistic-regression%E3%81%AEsolver%E3%81%AE%E7%A8%AE%E9%A1%9E">Logistic Regressionのsolverの種類</a></li>
+<li><a href="#%E7%94%9F%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A7%E3%81%AE%E5%88%86%E9%A1%9E">生データでの分類</a></li>
+<li><a href="#pca%E3%81%A72-9%E6%AC%A1%E5%85%83%E3%81%AB%E6%AC%A1%E5%85%83%E5%89%8A%E6%B8%9B%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A7%E3%81%AE%E5%88%86%E9%A1%9E">PCAで2-9次元に次元削減したデータでの分類</a></li>
+<li><a href="#%E6%A8%99%E6%BA%96%E5%8C%96%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A7%E3%81%AE%E5%88%86%E9%A1%9E">標準化したデータでの分類</a></li>
+<li><a href="#%E6%AD%A3%E8%A6%8F%E5%8C%96%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A7%E3%81%AE%E5%88%86%E9%A1%9E">正規化したデータでの分類</a></li>
+</ul>
+</li>
+<li><a href="#5-%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%88%86%E9%A1%9E%E3%81%AE%E5%85%A8%E4%BD%93%E3%81%AE%E3%82%BD%E3%83%BC%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%89"><strong>5. データの分類の全体のソースコード</strong></a></li>
+</ul>
+</li>
+</ul>
+<div style="padding-top: 20px;"></div>
+<hr>
+<h2 id="%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%8F%AF%E8%A6%96%E5%8C%96"><strong>データの可視化</strong></h2>
+<hr>
+<h3 id="1-csv%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF"><strong>1. CSVファイルの読み込み</strong></h3>
+<h4 id="%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88">ライブラリのインポート</h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+</div></code></pre>
+<h4 id="%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF">ファイルの読み込み</h4>
+<ul>
+<li>ヘッダーがある場合</li>
+</ul>
+<pre class="hljs"><code><div>data = pd.read_csv(path)
+</div></code></pre>
+<ul>
+<li>ヘッダーがない場合</li>
+</ul>
+<pre class="hljs"><code><div>data = pd.read_csv(path, header=<span class="hljs-literal">None</span>)
+</div></code></pre>
+<h4 id="%E7%89%B9%E5%BE%B4%E9%87%8F%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%88%86%E9%A1%9E-%E5%90%84%E8%A1%8C%E3%81%AE%E4%B8%80%E7%95%AA%E5%8F%B3%E5%81%B4%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8C%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA%E3%82%92%E7%A4%BA%E3%81%99%E5%A0%B4%E5%90%88">特徴量データとカテゴリデータの分類 (各行の一番右側のデータがカテゴリを示す場合)</h4>
+<pre class="hljs"><code><div>X = data.iloc[:, :<span class="hljs-number">-1</span>].values  <span class="hljs-comment"># 特徴量データ</span>
+y = data.iloc[:, <span class="hljs-number">-1</span>].values   <span class="hljs-comment"># カテゴリのインデックス</span>
+</div></code></pre>
+<h3 id="2-pca%E3%81%AB%E3%82%88%E3%82%8B%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E6%AC%A1%E5%85%83%E5%89%8A%E6%B8%9B"><strong>2. PCAによるデータの次元削減</strong></h3>
+<h4 id="%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88">ライブラリのインポート</h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> sklearn.decomposition <span class="hljs-keyword">import</span> PCA
+</div></code></pre>
+<p>※ scikit-learn Documents link: <a href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html">[PCA]</a></p>
+<h4 id="%E6%AC%A1%E5%85%83%E5%89%8A%E6%B8%9B">次元削減</h4>
+<p>PCAクラスのn_componentsは主成分分析によって抽出される主成分の数を示す。</p>
+<ul>
+<li>2次元</li>
+</ul>
+<pre class="hljs"><code><div>pca_2 = PCA(n_components=<span class="hljs-number">2</span>) 
+X_pca_2 = pca.fit_transform(X)
+</div></code></pre>
+<ul>
+<li>3次元</li>
+</ul>
+<pre class="hljs"><code><div>pca_3 = PCA(n_components=<span class="hljs-number">3</span>)
+X_pca_3 = pca.fit_transform(X)
+</div></code></pre>
+<h3 id="3-matplotlib%E3%82%92%E7%94%A8%E3%81%84%E3%81%9F%E5%8F%AF%E8%A6%96%E5%8C%96"><strong>3. Matplotlibを用いた可視化</strong></h3>
+<h4 id="%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88">ライブラリのインポート</h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+</div></code></pre>
+<h4 id="%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA%E5%90%8D%E3%81%A8%E8%89%B2%E3%81%AE%E6%8C%87%E5%AE%9A">カテゴリ名と色の指定</h4>
+<pre class="hljs"><code><div>categories = [<span class="hljs-string">"apple"</span>, <span class="hljs-string">"blocks"</span>, <span class="hljs-string">"coler_block"</span>, <span class="hljs-string">"cup"</span>, <span class="hljs-string">"egg_plant"</span>, <span class="hljs-string">"kiwi"</span>, <span class="hljs-string">"paprika"</span>, <span class="hljs-string">"tomato"</span>, <span class="hljs-string">"toy"</span>]
+colors = [<span class="hljs-string">"r"</span>, <span class="hljs-string">"g"</span>, <span class="hljs-string">"b"</span>, <span class="hljs-string">"c"</span>, <span class="hljs-string">"m"</span>, <span class="hljs-string">"y"</span>, <span class="hljs-string">"orange"</span>, <span class="hljs-string">"purple"</span>, <span class="hljs-string">"gray"</span>]
+</div></code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">色</th>
+<th style="text-align:center">引数colorの値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">赤 (red)</td>
+<td style="text-align:center">r</td>
+</tr>
+<tr>
+<td style="text-align:left">青 (blue)</td>
+<td style="text-align:center">b</td>
+</tr>
+<tr>
+<td style="text-align:left">緑 (green)</td>
+<td style="text-align:center">g</td>
+</tr>
+<tr>
+<td style="text-align:left">黄色 (yellow)</td>
+<td style="text-align:center">y</td>
+</tr>
+<tr>
+<td style="text-align:left">マゼンタ (magenta)</td>
+<td style="text-align:center">m</td>
+</tr>
+<tr>
+<td style="text-align:left">シアン</td>
+<td style="text-align:center">c</td>
+</tr>
+<tr>
+<td style="text-align:left">黒</td>
+<td style="text-align:center">k</td>
+</tr>
+<tr>
+<td style="text-align:left">白</td>
+<td style="text-align:center">w</td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary>その他の色</summary>
+<img alt="その他の色" src="md_/matplotlib_color.png" width="600">
+<p><a href="https://matplotlib.org/stable/gallery/color/named_colors.html">&gt; matplotlib.colors</a></p>
+</details>
+<h4 id="2%E6%AC%A1%E5%85%83%E3%81%A7%E3%81%AE%E6%8F%8F%E5%86%99">2次元での描写</h4>
+<pre class="hljs"><code><div>plt.figure(figsize=(<span class="hljs-number">8</span>, <span class="hljs-number">8</span>))
+<span class="hljs-keyword">for</span> category, color <span class="hljs-keyword">in</span> zip(categories, colors):
+    indices = np.where(y == categories.index(category))
+    plt.scatter(X_pca[indices, <span class="hljs-number">0</span>], X_pca[indices, <span class="hljs-number">1</span>], c=color, label=category, alpha=<span class="hljs-number">0.7</span>)
+
+plt.xlabel(<span class="hljs-string">"Principal Component 1"</span>)
+plt.ylabel(<span class="hljs-string">"Principal Component 2"</span>)
+plt.legend(fontsize=<span class="hljs-number">15</span>)
+plt.grid(<span class="hljs-literal">True</span>)
+plt.show()
+</div></code></pre>
+<img alt="2d" src="md_/output.png" width="600">
+<h4 id="3%E6%AC%A1%E5%85%83%E3%81%A7%E3%81%AE%E6%8F%8F%E5%86%99">3次元での描写</h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">for</span> category, color <span class="hljs-keyword">in</span> zip(categories, colors):
+    indices = np.where(y == categories.index(category))
+    ax.scatter(X_pca[indices, <span class="hljs-number">0</span>], X_pca[indices, <span class="hljs-number">1</span>], X_pca[indices, <span class="hljs-number">2</span>], c=color, label=category)
+ax.set_xlabel(<span class="hljs-string">"Principal Component 1"</span>)
+ax.set_ylabel(<span class="hljs-string">"Principal Component 2"</span>)
+ax.set_zlabel(<span class="hljs-string">"Principal Component 3"</span>)
+ax.legend()
+ax.grid(<span class="hljs-literal">True</span>)
+plt.show()
+</div></code></pre>
+<img alt="3d" src="md_/output_3d.png" width="600">
+<h3 id="4-%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%8F%AF%E8%A6%96%E5%8C%96%E3%81%AE%E5%85%A8%E4%BD%93%E3%81%AE%E3%82%BD%E3%83%BC%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%89"><strong>4. データの可視化の全体のソースコード</strong></h3>
+<p>今回使用したデータセット: <a href="md_/msdata.csv">msdata.csv</a></p>
+<h4 id="2%E6%AC%A1%E5%85%83%E3%81%A7%E5%8F%AF%E8%A6%96%E5%8C%96">2次元で可視化</h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">from</span> sklearn.decomposition <span class="hljs-keyword">import</span> PCA
+
+<span class="hljs-comment"># データの読み込み</span>
+data = pd.read_csv(<span class="hljs-string">"./msdata.csv"</span>, header=<span class="hljs-literal">None</span>)
+X = data.iloc[:, :<span class="hljs-number">-1</span>].values  <span class="hljs-comment"># 特徴量データ</span>
+y = data.iloc[:, <span class="hljs-number">-1</span>].values   <span class="hljs-comment"># カテゴリのインデックス</span>
+
+<span class="hljs-comment"># PCAで次元削減</span>
+pca = PCA(n_components=<span class="hljs-number">2</span>)
+X_pca = pca.fit_transform(X)
+
+<span class="hljs-comment"># 可視化</span>
+categories = [<span class="hljs-string">"apple"</span>, <span class="hljs-string">"blocks"</span>, <span class="hljs-string">"coler_block"</span>, <span class="hljs-string">"cup"</span>, <span class="hljs-string">"egg_plant"</span>, <span class="hljs-string">"kiwi"</span>, <span class="hljs-string">"paprika"</span>, <span class="hljs-string">"tomato"</span>, <span class="hljs-string">"toy"</span>]
+colors = [<span class="hljs-string">"r"</span>, <span class="hljs-string">"g"</span>, <span class="hljs-string">"b"</span>, <span class="hljs-string">"c"</span>, <span class="hljs-string">"m"</span>, <span class="hljs-string">"y"</span>, <span class="hljs-string">"orange"</span>, <span class="hljs-string">"purple"</span>, <span class="hljs-string">"gray"</span>]
+
+plt.figure(figsize=(<span class="hljs-number">8</span>, <span class="hljs-number">8</span>))
+<span class="hljs-keyword">for</span> category, color <span class="hljs-keyword">in</span> zip(categories, colors):
+    indices = np.where(y == categories.index(category))
+    plt.scatter(X_pca[indices, <span class="hljs-number">0</span>], X_pca[indices, <span class="hljs-number">1</span>], c=color, label=category, alpha=<span class="hljs-number">0.7</span>)
+
+plt.xlabel(<span class="hljs-string">"Principal Component 1"</span>)
+plt.ylabel(<span class="hljs-string">"Principal Component 2"</span>)
+plt.legend(fontsize=<span class="hljs-number">15</span>)
+plt.grid(<span class="hljs-literal">True</span>)
+plt.show()
+</div></code></pre>
+<h4 id="2%E6%AC%A1%E5%85%83%E3%81%A7%E5%8F%AF%E8%A6%96%E5%8C%96-%E5%BF%9C%E7%94%A8">2次元で可視化 (応用)</h4>
+<p>指定したカテゴリのみの可視化 (※今回はカテゴリ3と4の抽出)</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">from</span> sklearn.decomposition <span class="hljs-keyword">import</span> PCA
+
+<span class="hljs-comment"># データの読み込み</span>
+data = pd.read_csv(<span class="hljs-string">"./msdata.csv"</span>, header=<span class="hljs-literal">None</span>)
+X = data.iloc[:, :<span class="hljs-number">-1</span>].values  <span class="hljs-comment"># 特徴量データ</span>
+y = data.iloc[:, <span class="hljs-number">-1</span>].values   <span class="hljs-comment"># カテゴリのインデックス</span>
+
+<span class="hljs-comment"># カテゴリインデックスが3と4のデータのみを抽出</span>
+selected_categories = [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]
+selected_indices = np.where(np.isin(y, selected_categories))
+X_selected = X[selected_indices]
+y_selected = y[selected_indices]
+
+<span class="hljs-comment"># PCAで次元削減</span>
+pca = PCA(n_components=<span class="hljs-number">2</span>)
+X_pca = pca.fit_transform(X_selected)
+
+<span class="hljs-comment"># 可視化</span>
+categories = [<span class="hljs-string">"apple"</span>, <span class="hljs-string">"blocks"</span>, <span class="hljs-string">"coler_block"</span>, <span class="hljs-string">"cup"</span>, <span class="hljs-string">"egg_plant"</span>, <span class="hljs-string">"kiwi"</span>, <span class="hljs-string">"paprika"</span>, <span class="hljs-string">"tomato"</span>, <span class="hljs-string">"toy"</span>]
+colors = [<span class="hljs-string">"r"</span>, <span class="hljs-string">"g"</span>, <span class="hljs-string">"b"</span>, <span class="hljs-string">"c"</span>, <span class="hljs-string">"m"</span>, <span class="hljs-string">"y"</span>, <span class="hljs-string">"orange"</span>, <span class="hljs-string">"purple"</span>, <span class="hljs-string">"gray"</span>]
+
+plt.figure(figsize=(<span class="hljs-number">8</span>, <span class="hljs-number">8</span>))
+<span class="hljs-keyword">for</span> category_idx, color <span class="hljs-keyword">in</span> zip(selected_categories, [colors[i] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> selected_categories]):
+    indices = np.where(y_selected == category_idx)
+    plt.scatter(X_pca[indices, <span class="hljs-number">0</span>], X_pca[indices, <span class="hljs-number">1</span>], c=color, label=categories[category_idx])
+
+plt.xlabel(<span class="hljs-string">"Principal Component 1"</span>)
+plt.ylabel(<span class="hljs-string">"Principal Component 2"</span>)
+plt.legend(fontsize=<span class="hljs-number">15</span>)
+plt.grid(<span class="hljs-literal">True</span>)
+plt.show()
+</div></code></pre>
+<h4 id="3%E6%AC%A1%E5%85%83%E3%81%A7%E5%8F%AF%E8%A6%96%E5%8C%96">3次元で可視化</h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">from</span> mpl_toolkits.mplot3d <span class="hljs-keyword">import</span> Axes3D
+<span class="hljs-keyword">from</span> sklearn.decomposition <span class="hljs-keyword">import</span> PCA
+
+<span class="hljs-comment"># データの読み込み</span>
+data = pd.read_csv(<span class="hljs-string">"./msdata.csv"</span>, header=<span class="hljs-literal">None</span>)
+X = data.iloc[:, :<span class="hljs-number">-1</span>].values  <span class="hljs-comment"># 特徴量データ</span>
+y = data.iloc[:, <span class="hljs-number">-1</span>].values   <span class="hljs-comment"># カテゴリのインデックス</span>
+
+<span class="hljs-comment"># PCAで次元削減</span>
+pca = PCA(n_components=<span class="hljs-number">3</span>)
+X_pca = pca.fit_transform(X)
+
+<span class="hljs-comment"># 可視化</span>
+categories = [<span class="hljs-string">"apple"</span>, <span class="hljs-string">"blocks"</span>, <span class="hljs-string">"coler_block"</span>, <span class="hljs-string">"cup"</span>, <span class="hljs-string">"egg_plant"</span>, <span class="hljs-string">"kiwi"</span>, <span class="hljs-string">"paprika"</span>, <span class="hljs-string">"tomato"</span>, <span class="hljs-string">"toy"</span>]
+colors = [<span class="hljs-string">"r"</span>, <span class="hljs-string">"g"</span>, <span class="hljs-string">"b"</span>, <span class="hljs-string">"c"</span>, <span class="hljs-string">"m"</span>, <span class="hljs-string">"y"</span>, <span class="hljs-string">"orange"</span>, <span class="hljs-string">"purple"</span>, <span class="hljs-string">"gray"</span>]
+
+fig = plt.figure(figsize=(<span class="hljs-number">8</span>, <span class="hljs-number">8</span>))
+ax = fig.add_subplot(<span class="hljs-number">111</span>, projection=<span class="hljs-string">"3d"</span>)
+
+<span class="hljs-keyword">for</span> category, color <span class="hljs-keyword">in</span> zip(categories, colors):
+    indices = np.where(y == categories.index(category))
+    ax.scatter(X_pca[indices, <span class="hljs-number">0</span>], X_pca[indices, <span class="hljs-number">1</span>], X_pca[indices, <span class="hljs-number">2</span>], c=color, label=category)
+
+ax.set_xlabel(<span class="hljs-string">"Principal Component 1"</span>)
+ax.set_ylabel(<span class="hljs-string">"Principal Component 2"</span>)
+ax.set_zlabel(<span class="hljs-string">"Principal Component 3"</span>)
+ax.legend()
+ax.grid(<span class="hljs-literal">True</span>)
+plt.show()
+</div></code></pre>
+<h4 id="3%E6%AC%A1%E5%85%83%E3%81%A7%E5%8F%AF%E8%A6%96%E5%8C%96-%E5%BF%9C%E7%94%A8">3次元で可視化 (応用)</h4>
+<p>指定したカテゴリのみの可視化 (※今回はカテゴリ3と4の抽出)</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">from</span> mpl_toolkits.mplot3d <span class="hljs-keyword">import</span> Axes3D
+<span class="hljs-keyword">from</span> sklearn.decomposition <span class="hljs-keyword">import</span> PCA
+
+<span class="hljs-comment"># データの読み込み</span>
+data = pd.read_csv(<span class="hljs-string">"./msdata.csv"</span>, header=<span class="hljs-literal">None</span>)
+X = data.iloc[:, :<span class="hljs-number">-1</span>].values  <span class="hljs-comment"># 特徴量データ</span>
+y = data.iloc[:, <span class="hljs-number">-1</span>].values   <span class="hljs-comment"># カテゴリのインデックス</span>
+
+<span class="hljs-comment"># カテゴリインデックスが3と4のデータのみを抽出</span>
+selected_categories = [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]
+selected_indices = np.where(np.isin(y, selected_categories))
+X_selected = X[selected_indices]
+y_selected = y[selected_indices]
+
+<span class="hljs-comment"># PCAで次元削減</span>
+pca = PCA(n_components=<span class="hljs-number">3</span>)
+X_pca = pca.fit_transform(X_selected)
+
+<span class="hljs-comment"># 可視化</span>
+categories = [<span class="hljs-string">"apple"</span>, <span class="hljs-string">"blocks"</span>, <span class="hljs-string">"coler_block"</span>, <span class="hljs-string">"cup"</span>, <span class="hljs-string">"egg_plant"</span>, <span class="hljs-string">"kiwi"</span>, <span class="hljs-string">"paprika"</span>, <span class="hljs-string">"tomato"</span>, <span class="hljs-string">"toy"</span>]
+colors = [<span class="hljs-string">"r"</span>, <span class="hljs-string">"g"</span>, <span class="hljs-string">"b"</span>, <span class="hljs-string">"c"</span>, <span class="hljs-string">"m"</span>, <span class="hljs-string">"y"</span>, <span class="hljs-string">"orange"</span>, <span class="hljs-string">"purple"</span>, <span class="hljs-string">"gray"</span>]
+
+fig = plt.figure(figsize=(<span class="hljs-number">8</span>, <span class="hljs-number">8</span>))
+ax = fig.add_subplot(<span class="hljs-number">111</span>, projection=<span class="hljs-string">"3d"</span>)
+
+<span class="hljs-keyword">for</span> category_idx, color <span class="hljs-keyword">in</span> zip(selected_categories, [colors[i] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> selected_categories]):
+    indices = np.where(y_selected == category_idx)
+    ax.scatter(X_pca[indices, <span class="hljs-number">0</span>], X_pca[indices, <span class="hljs-number">1</span>], X_pca[indices, <span class="hljs-number">2</span>], c=color, label=categories[category_idx])
+
+ax.set_xlabel(<span class="hljs-string">"Principal Component 1"</span>)
+ax.set_ylabel(<span class="hljs-string">"Principal Component 2"</span>)
+ax.set_zlabel(<span class="hljs-string">"Principal Component 3"</span>)
+ax.legend(fontsize=<span class="hljs-number">15</span>)
+ax.grid(<span class="hljs-literal">True</span>)
+plt.show()
+</div></code></pre>
+<div style="padding-top: 20px;"></div>
+<hr>
+<h2 id="%E5%88%86%E9%A1%9E-%E5%B9%B3%E5%9D%87%E5%88%86%E9%A1%9E%E7%B2%BE%E5%BA%A6%E3%81%AE%E7%AE%97%E5%87%BA"><strong>分類 (平均分類精度の算出)</strong></h2>
+<hr>
+<h3 id="1-csv%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF"><strong>1. CSVファイルの読み込み</strong></h3>
+<h4 id="%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88">ライブラリのインポート</h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+</div></code></pre>
+<h4 id="%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF">ファイルの読み込み</h4>
+<ul>
+<li>ヘッダーがある場合</li>
+</ul>
+<pre class="hljs"><code><div>data = pd.read_csv(path)
+</div></code></pre>
+<ul>
+<li>ヘッダーがない場合</li>
+</ul>
+<pre class="hljs"><code><div>data = pd.read_csv(path, header=<span class="hljs-literal">None</span>)
+</div></code></pre>
+<h4 id="%E7%89%B9%E5%BE%B4%E9%87%8F%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%88%86%E9%A1%9E-%E5%90%84%E8%A1%8C%E3%81%AE%E4%B8%80%E7%95%AA%E5%8F%B3%E5%81%B4%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8C%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA%E3%82%92%E7%A4%BA%E3%81%99%E5%A0%B4%E5%90%88">特徴量データとカテゴリデータの分類 (各行の一番右側のデータがカテゴリを示す場合)</h4>
+<pre class="hljs"><code><div>X = data.iloc[:, :<span class="hljs-number">-1</span>].values  <span class="hljs-comment"># 特徴量データ</span>
+y = data.iloc[:, <span class="hljs-number">-1</span>].values   <span class="hljs-comment"># カテゴリのインデックス</span>
+</div></code></pre>
+<h3 id="2-%E5%88%86%E9%A1%9E%E7%B2%BE%E5%BA%A6%E3%82%92%E6%A0%BC%E7%B4%8D%E3%81%99%E3%82%8B%E5%A4%89%E6%95%B0%E3%81%AE%E4%BD%9C%E6%88%90"><strong>2. 分類精度を格納する変数の作成</strong></h3>
+<pre class="hljs"><code><div>results = {
+    <span class="hljs-string">"raw_data"</span>: [],
+    <span class="hljs-string">"pca_2_dim"</span>: [],
+    <span class="hljs-string">"pca_3_dim"</span>: [],
+    <span class="hljs-string">"pca_4_dim"</span>: [],
+    <span class="hljs-string">"pca_5_dim"</span>: [],
+    <span class="hljs-string">"pca_6_dim"</span>: [],
+    <span class="hljs-string">"pca_7_dim"</span>: [],
+    <span class="hljs-string">"pca_8_dim"</span>: [],
+    <span class="hljs-string">"pca_9_dim"</span>: [],
+    <span class="hljs-string">"standard_scaled"</span>: [],
+    <span class="hljs-string">"minmax_scaled"</span>: [],
+}
+</div></code></pre>
+<h3 id="3-%E5%90%84%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA%E3%81%94%E3%81%A8%E3%81%AE%E3%83%86%E3%82%B9%E3%83%88%E3%83%87%E3%83%BC%E3%82%BF%E3%83%BB%E5%AD%A6%E7%BF%92%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%88%86%E5%89%B2"><strong>3. 各カテゴリごとのテストデータ・学習データの分割</strong></h3>
+<h4 id="%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88">ライブラリのインポート</h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
+</div></code></pre>
+<h4 id="%E8%A9%A6%E8%A1%8C%E5%9B%9E%E6%95%B0%E3%81%AE%E5%AE%A3%E8%A8%80">試行回数の宣言</h4>
+<pre class="hljs"><code><div>num_trials = <span class="hljs-number">5</span>
+</div></code></pre>
+<h4 id="%E8%A9%A6%E8%A1%8C%E5%9B%9E%E6%95%B0%E5%88%86%E5%90%84%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA%E3%81%94%E3%81%A8%E3%81%AB%E3%83%86%E3%82%B9%E3%83%88%E3%83%87%E3%83%BC%E3%82%BF%E5%AD%A6%E7%BF%92%E3%83%87%E3%83%BC%E3%82%BF%E3%82%9228%E3%81%AB%E5%88%86%E5%89%B2">試行回数分、各カテゴリごとにテストデータ:学習データを2:8に分割</h4>
+<pre class="hljs"><code><div><span class="hljs-comment"># 各カテゴリごとに配列を分割 (X_y[0]にカテゴリ0のXの値が入る)</span>
+X_y = np.split(X, np.where(np.diff(y) != <span class="hljs-number">0</span>)[<span class="hljs-number">0</span>] + <span class="hljs-number">1</span>)
+y_y = np.split(y, np.where(np.diff(y) != <span class="hljs-number">0</span>)[<span class="hljs-number">0</span>] + <span class="hljs-number">1</span>)
+
+<span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(num_trials):
+    X_train, X_test, y_train, y_test = [], [], [], []
+    print(<span class="hljs-string">"\r現在の試験回数: "</span> + str(_+<span class="hljs-number">1</span>) + <span class="hljs-string">"回"</span>, end=<span class="hljs-string">""</span>)
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(X_y)):
+        X_tr, X_te, y_tr, y_te = train_test_split(X_y[i], y_y[i], test_size=<span class="hljs-number">0.2</span>, stratify=y_y[i])
+        X_train.extend(X_tr.tolist())
+        X_test.extend(X_te.tolist())
+        y_train.extend(y_tr.tolist())
+        y_test.extend(y_te.tolist())
+
+    <span class="hljs-comment"># ここに分類を行うコードを書き、分類を行う。</span>
+</div></code></pre>
+<h3 id="4-%E3%83%AD%E3%82%B8%E3%82%B9%E3%83%86%E3%82%A3%E3%83%83%E3%82%AF%E5%9B%9E%E5%B8%B0%E3%82%92%E7%94%A8%E3%81%84%E3%81%9F%E5%88%86%E9%A1%9E%E7%B2%BE%E5%BA%A6%E3%81%AE%E7%AE%97%E5%87%BA"><strong>4. ロジスティック回帰を用いた分類精度の算出</strong></h3>
+<h4 id="%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88">ライブラリのインポート</h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LogisticRegression <span class="hljs-comment"># ロジスティック回帰</span>
+<span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> accuracy_score          <span class="hljs-comment"># 精度の算出</span>
+<span class="hljs-keyword">from</span> sklearn.decomposition <span class="hljs-keyword">import</span> PCA               <span class="hljs-comment"># 主成分分析 (PCA)</span>
+<span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> StandardScaler    <span class="hljs-comment"># 標準化</span>
+<span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> MinMaxScaler      <span class="hljs-comment"># 正規化</span>
+</div></code></pre>
+<p>※ scikit-learn Documents link:
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html">[LogisticRegression]</a>,
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html">[accuracy_score]</a>,
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html">[PCA]</a>,
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html">[StandardScaler]</a>,
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html#sklearn.preprocessing.MinMaxScaler">[MinMaxScaler]</a></p>
+<h4 id="logistic-regression%E3%81%AEsolver%E3%81%AE%E7%A8%AE%E9%A1%9E">Logistic Regressionのsolverの種類</h4>
+<table>
+<thead>
+<tr>
+<th>Solver</th>
+<th>特徴と特性</th>
+<th>向いてるデータ規模・種類</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lbfgs</td>
+<td>プラクティカルなデフォルト選択<br>連続的な関数の最適化に特化L2正則化に対応</td>
+<td>小〜中規模のデータセット<br>他の最適化アルゴリズムが遅いときや高次元データに向いている</td>
+</tr>
+<tr>
+<td>liblinear</td>
+<td>L1正則化とL2正則化をサポート<br>メモリ効率が高く、大規模なデータセットに適している</td>
+<td>2値分類問題に適している<br>疎なデータセット（特徴量のほとんどが0）</td>
+</tr>
+<tr>
+<td>newton-cg</td>
+<td>ニュートン共役勾配法を使用<br>L2正則化に対応多クラス分類問題に適している</td>
+<td>中規模のデータセット<br>多クラス分類問題非線形の決定境界を持つデータ</td>
+</tr>
+<tr>
+<td>newton-cholesky</td>
+<td>ニュートン法を使用し、コレスキー分解を行う<br>L2正則化に対応二値分類問題に適している</td>
+<td>中規模のデータセット<br>2値分類問題</td>
+</tr>
+<tr>
+<td>sag</td>
+<td>確率的平均勾配降下法 (Stochastic Average Gradient) を使用<br>大規模なデータセットに適している</td>
+<td>大規模のデータセット<br>L2正則化他の最適化アルゴリズムよりも高速な収束を実現したいとき</td>
+</tr>
+<tr>
+<td>saga</td>
+<td>SAGA (Stochastic Average Gradient Adaptive) アルゴリズムを使用<br>L1正則化とL2正則化をサポート大規模データセット向け</td>
+<td>大規模のデータセット<br>L1正則化、L2正則化の両方を使用したいとき</td>
+</tr>
+</tbody>
+</table>
+<h4 id="%E7%94%9F%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A7%E3%81%AE%E5%88%86%E9%A1%9E">生データでの分類</h4>
+<pre class="hljs"><code><div><span class="hljs-comment"># モデルの作成</span>
+model = LogisticRegression(solver=<span class="hljs-string">"saga"</span>, max_iter=<span class="hljs-number">4000</span>)
+model.fit(X_train, y_train)
+
+<span class="hljs-comment"># モデルを使用してX_testデータを分類する</span>
+y_pred = model.predict(X_test)
+
+<span class="hljs-comment"># 分類結果のスコアを算出する</span>
+accuracy = accuracy_score(y_test, y_pred)
+
+<span class="hljs-comment"># 結果を格納する</span>
+results[<span class="hljs-string">"raw_data"</span>].append(accuracy)
+</div></code></pre>
+<h4 id="pca%E3%81%A72-9%E6%AC%A1%E5%85%83%E3%81%AB%E6%AC%A1%E5%85%83%E5%89%8A%E6%B8%9B%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A7%E3%81%AE%E5%88%86%E9%A1%9E">PCAで2-9次元に次元削減したデータでの分類</h4>
+<pre class="hljs"><code><div><span class="hljs-comment"># n_componentsを2-9の間繰り返す</span>
+<span class="hljs-keyword">for</span> n_components <span class="hljs-keyword">in</span> range(<span class="hljs-number">2</span>, <span class="hljs-number">10</span>):
+    <span class="hljs-comment"># n_componentsで指定された次元数を使用してPCAを行う。</span>
+    pca = PCA(n_components=n_components)
+
+    <span class="hljs-comment"># pcaによる結果を格納する</span>
+    X_train_pca = pca.fit_transform(X_train)
+    X_test_pca = pca.transform(X_test)
+
+    <span class="hljs-comment"># モデルの作成</span>
+    model = LogisticRegression(solver=<span class="hljs-string">"saga"</span>, max_iter=<span class="hljs-number">4000</span>)
+    model.fit(X_train_pca, y_train)
+
+    <span class="hljs-comment"># モデルを使用してX_test_pcaデータを分類する</span>
+    y_pred = model.predict(X_test_pca)
+
+    <span class="hljs-comment"># 分類結果のスコアを算出する</span>
+    accuracy = accuracy_score(y_test, y_pred)
+
+    <span class="hljs-comment"># 結果を格納する</span>
+    results[<span class="hljs-string">f"pca_<span class="hljs-subst">{n_components}</span>_dim"</span>].append(accuracy)
+</div></code></pre>
+<h4 id="%E6%A8%99%E6%BA%96%E5%8C%96%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A7%E3%81%AE%E5%88%86%E9%A1%9E">標準化したデータでの分類</h4>
+<pre class="hljs"><code><div><span class="hljs-comment"># 標準化</span>
+scaler = StandardScaler()
+
+<span class="hljs-comment"># 標準化した結果の格納</span>
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+<span class="hljs-comment"># モデルの作成</span>
+model = LogisticRegression(solver=<span class="hljs-string">"saga"</span>, max_iter=<span class="hljs-number">4000</span>)
+model.fit(X_train_scaled, y_train)
+
+<span class="hljs-comment"># モデルを使用してX_test_scaledデータを分類</span>
+y_pred = model.predict(X_test_scaled)
+
+<span class="hljs-comment"># 分類結果のスコアを算出</span>
+accuracy = accuracy_score(y_test, y_pred)
+
+<span class="hljs-comment"># 結果の格納</span>
+results[<span class="hljs-string">"standard_scaled"</span>].append(accuracy)
+</div></code></pre>
+<h4 id="%E6%AD%A3%E8%A6%8F%E5%8C%96%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A7%E3%81%AE%E5%88%86%E9%A1%9E">正規化したデータでの分類</h4>
+<pre class="hljs"><code><div><span class="hljs-comment"># 正規化</span>
+mmscaler = MinMaxScaler()
+
+<span class="hljs-comment"># 正規化した結果の格納</span>
+X_train_mmscaled = mmscaler.fit_transform(X_train)
+X_test_mmscaled = mmscaler.transform(X_test)
+
+<span class="hljs-comment"># モデルの作成</span>
+model = LogisticRegression(solver=<span class="hljs-string">"saga"</span>, max_iter=<span class="hljs-number">4000</span>)
+model.fit(X_train_mmscaled, y_train)
+
+<span class="hljs-comment"># モデルを使用してX_test_mmscaledデータの分類</span>
+y_pred = model.predict(X_test_mmscaled)
+
+<span class="hljs-comment"># 分類結果のスコアを算出</span>
+accuracy = accuracy_score(y_test, y_pred)
+
+<span class="hljs-comment"># 結果の格納</span>
+results[<span class="hljs-string">"minmax_scaled"</span>].append(accuracy)
+</div></code></pre>
+<p>上のコードを実行すると以下のようなConvergenceWarningという警告が出る場合があります。</p>
+<pre class="hljs"><code><div>ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+</div></code></pre>
+<p>これは最適化アルゴリズムが設定された反復回数内で収束しなかったことを意味します。このエラーが出た場合はmax_iterの値を増やしたり、違うsolverを使用してください。(max_iterのデフォルト値: 100)</p>
+<p>また、標準化や正規化を行っていないデータをロジスティック回帰にかけたときもこの警告が出やすいため、標準化や正規化などといった前処理を行うことでも警告がでなくなることがあります。</p>
+<h3 id="5-%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%88%86%E9%A1%9E%E3%81%AE%E5%85%A8%E4%BD%93%E3%81%AE%E3%82%BD%E3%83%BC%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%89"><strong>5. データの分類の全体のソースコード</strong></h3>
+<p>今回使用したデータセット: <a href="md_/msdata.csv">msdata.csv</a></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
+<span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LogisticRegression <span class="hljs-comment"># ロジスティック回帰</span>
+<span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> accuracy_score          <span class="hljs-comment"># 精度の算出</span>
+<span class="hljs-keyword">from</span> sklearn.decomposition <span class="hljs-keyword">import</span> PCA               <span class="hljs-comment"># 主成分分析 (PCA)</span>
+<span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> StandardScaler    <span class="hljs-comment"># 標準化</span>
+<span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> MinMaxScaler      <span class="hljs-comment"># 正規化</span>
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">print_results</span><span class="hljs-params">(results)</span>:</span>
+    <span class="hljs-comment"># 平均精度の算出</span>
+    mean_results = {key: np.mean(value) * <span class="hljs-number">100</span> <span class="hljs-keyword">for</span> key, value <span class="hljs-keyword">in</span> results.items()}
+
+    keys_list = list(results.keys())
+    key_len = max(len(key) <span class="hljs-keyword">for</span> key <span class="hljs-keyword">in</span> keys_list)
+
+    ordinal_suffix = <span class="hljs-keyword">lambda</span> n: <span class="hljs-string">"st"</span> <span class="hljs-keyword">if</span> n == <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> <span class="hljs-string">"nd"</span> <span class="hljs-keyword">if</span> n == <span class="hljs-number">2</span> <span class="hljs-keyword">else</span> <span class="hljs-string">"rd"</span> <span class="hljs-keyword">if</span> n == <span class="hljs-number">3</span> <span class="hljs-keyword">else</span> <span class="hljs-string">"th"</span>
+
+    print(<span class="hljs-string">f"\n&lt;&lt; Classification accuracy &gt;&gt;\n+<span class="hljs-subst">{<span class="hljs-string">'-'</span>*(key_len+<span class="hljs-number">1</span>)}</span>+<span class="hljs-subst">{<span class="hljs-string">'----------+'</span>*len(results[keys_list[<span class="hljs-number">0</span>]])}</span>-----------------+"</span>)
+    print(<span class="hljs-string">f"|<span class="hljs-subst">{<span class="hljs-string">'Data Type'</span>.ljust(key_len+<span class="hljs-number">1</span>)}</span>|"</span>, end=<span class="hljs-string">""</span>)
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(results[<span class="hljs-string">'raw_data'</span>])):
+        print(<span class="hljs-string">f"<span class="hljs-subst">{str(i + <span class="hljs-number">1</span>).rjust(<span class="hljs-number">2</span>)}</span><span class="hljs-subst">{ordinal_suffix(i + <span class="hljs-number">1</span>)}</span> test |"</span>, end=<span class="hljs-string">""</span>)
+    print(<span class="hljs-string">f"Average accuracy |\n+<span class="hljs-subst">{<span class="hljs-string">'-'</span>*(key_len+<span class="hljs-number">1</span>)}</span>+<span class="hljs-subst">{<span class="hljs-string">'----------+'</span>*len(results[keys_list[<span class="hljs-number">0</span>]])}</span>-----------------+"</span>)
+
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(keys_list)):
+        print(<span class="hljs-string">f"|<span class="hljs-subst">{keys_list[i].ljust(key_len+<span class="hljs-number">1</span>)}</span>|"</span>, end=<span class="hljs-string">""</span>)
+        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> range(len(results[keys_list[<span class="hljs-number">0</span>]])):
+            print(<span class="hljs-string">f"    <span class="hljs-subst">{results[keys_list[i]][j]*<span class="hljs-number">100</span>:<span class="hljs-number">.2</span>f}</span>%|"</span>, end=<span class="hljs-string">""</span>)
+        print(<span class="hljs-string">" "</span> * <span class="hljs-number">11</span> + <span class="hljs-string">f"<span class="hljs-subst">{mean_results[keys_list[i]]:<span class="hljs-number">.2</span>f}</span>%|\n+<span class="hljs-subst">{<span class="hljs-string">'-'</span>*(key_len+<span class="hljs-number">1</span>)}</span>+<span class="hljs-subst">{<span class="hljs-string">'----------+'</span>*len(results[keys_list[<span class="hljs-number">0</span>]])}</span>-----------------+"</span>)
+
+
+
+data = pd.read_csv(<span class="hljs-string">'./msdata.csv'</span>, header=<span class="hljs-literal">None</span>)
+X = data.iloc[:, :<span class="hljs-number">-1</span>].values
+y = data.iloc[:, <span class="hljs-number">-1</span>].values
+
+results = {
+    <span class="hljs-string">'raw_data'</span>: [],
+    <span class="hljs-string">'pca_2_dim'</span>: [],
+    <span class="hljs-string">'pca_3_dim'</span>: [],
+    <span class="hljs-string">'pca_4_dim'</span>: [],
+    <span class="hljs-string">'pca_5_dim'</span>: [],
+    <span class="hljs-string">'pca_6_dim'</span>: [],
+    <span class="hljs-string">'pca_7_dim'</span>: [],
+    <span class="hljs-string">'pca_8_dim'</span>: [],
+    <span class="hljs-string">'pca_9_dim'</span>: [],
+    <span class="hljs-string">'standard_scaled'</span>: [],
+    <span class="hljs-string">'minmax_scaled'</span>: [],
+}
+num_trials = <span class="hljs-number">5</span>
+
+<span class="hljs-comment"># 各カテゴリごとに配列を分割 (X_y[0]にカテゴリ0のXの値が入る)</span>
+X_y = np.split(X, np.where(np.diff(y) != <span class="hljs-number">0</span>)[<span class="hljs-number">0</span>] + <span class="hljs-number">1</span>)
+y_y = np.split(y, np.where(np.diff(y) != <span class="hljs-number">0</span>)[<span class="hljs-number">0</span>] + <span class="hljs-number">1</span>)
+
+<span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(num_trials):
+    X_train, X_test, y_train, y_test = [], [], [], []
+    print(<span class="hljs-string">"\r現在の試験回数: "</span> + str(_+<span class="hljs-number">1</span>) + <span class="hljs-string">"回"</span>, end=<span class="hljs-string">""</span>)
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(X_y)):
+        X_tr, X_te, y_tr, y_te = train_test_split(X_y[i], y_y[i], test_size=<span class="hljs-number">0.2</span>, stratify=y_y[i])
+        X_train.extend(X_tr.tolist())
+        X_test.extend(X_te.tolist())
+        y_train.extend(y_tr.tolist())
+        y_test.extend(y_te.tolist())
+
+    <span class="hljs-comment">##### ここに分類を行うコードを書き、分類を行う。#####</span>
+
+    <span class="hljs-comment"># 1. 生データの分類</span>
+
+    <span class="hljs-comment"># モデルの作成</span>
+    model = LogisticRegression(solver=<span class="hljs-string">"saga"</span>, max_iter=<span class="hljs-number">4000</span>)
+    model.fit(X_train, y_train)
+
+    <span class="hljs-comment"># モデルを使用してX_testデータを分類する</span>
+    y_pred = model.predict(X_test)
+
+    <span class="hljs-comment"># 分類結果のスコアを算出する</span>
+    accuracy = accuracy_score(y_test, y_pred)
+
+    <span class="hljs-comment"># 結果を格納する</span>
+    results[<span class="hljs-string">'raw_data'</span>].append(accuracy)
+
+
+    <span class="hljs-comment"># 2. PCAで2-9次元に次元削減したデータでの分類</span>
+
+    <span class="hljs-comment"># n_componentsを2-9の間繰り返す</span>
+    <span class="hljs-keyword">for</span> n_components <span class="hljs-keyword">in</span> range(<span class="hljs-number">2</span>, <span class="hljs-number">10</span>):
+        <span class="hljs-comment"># n_componentsで指定された次元数を使用してPCAを行う。</span>
+        pca = PCA(n_components=n_components)
+
+        <span class="hljs-comment"># pcaによる結果を格納する</span>
+        X_train_pca = pca.fit_transform(X_train)
+        X_test_pca = pca.transform(X_test)
+
+        <span class="hljs-comment"># モデルの作成</span>
+        model = LogisticRegression(solver=<span class="hljs-string">"saga"</span>, max_iter=<span class="hljs-number">4000</span>)
+        model.fit(X_train_pca, y_train)
+
+        <span class="hljs-comment"># モデルを使用してX_test_pcaデータを分類する</span>
+        y_pred = model.predict(X_test_pca)
+
+        <span class="hljs-comment"># 分類結果のスコアを算出する</span>
+        accuracy = accuracy_score(y_test, y_pred)
+
+        <span class="hljs-comment"># 結果を格納する</span>
+        results[<span class="hljs-string">f'pca_<span class="hljs-subst">{n_components}</span>_dim'</span>].append(accuracy)
+
+
+    <span class="hljs-comment"># 3. 標準化したデータでの分類</span>
+
+    <span class="hljs-comment"># 標準化</span>
+    scaler = StandardScaler()
+
+    <span class="hljs-comment"># 標準化した結果の格納</span>
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
+
+    <span class="hljs-comment"># モデルの作成</span>
+    model = LogisticRegression(solver=<span class="hljs-string">"saga"</span>, max_iter=<span class="hljs-number">4000</span>)
+    model.fit(X_train_scaled, y_train)
+
+    <span class="hljs-comment"># モデルを使用してX_test_scaledデータを分類</span>
+    y_pred = model.predict(X_test_scaled)
+
+    <span class="hljs-comment"># 分類結果のスコアを算出</span>
+    accuracy = accuracy_score(y_test, y_pred)
+
+    <span class="hljs-comment"># 結果の格納</span>
+    results[<span class="hljs-string">'standard_scaled'</span>].append(accuracy)
+
+
+    <span class="hljs-comment"># 4. 正規化したデータでの分類</span>
+
+    <span class="hljs-comment"># 正規化</span>
+    mmscaler = MinMaxScaler()
+
+    <span class="hljs-comment"># 正規化した結果の格納</span>
+    X_train_mmscaled = mmscaler.fit_transform(X_train)
+    X_test_mmscaled = mmscaler.transform(X_test)
+
+    <span class="hljs-comment"># モデルの作成</span>
+    model = LogisticRegression(solver=<span class="hljs-string">"saga"</span>, max_iter=<span class="hljs-number">4000</span>)
+    model.fit(X_train_mmscaled, y_train)
+
+    <span class="hljs-comment"># モデルを使用してX_test_mmscaledデータの分類</span>
+    y_pred = model.predict(X_test_mmscaled)
+
+    <span class="hljs-comment"># 分類結果のスコアを算出</span>
+    accuracy = accuracy_score(y_test, y_pred)
+
+    <span class="hljs-comment"># 結果の格納</span>
+    results[<span class="hljs-string">'minmax_scaled'</span>].append(accuracy)
+
+print_results(results)
+</div></code></pre>
+<p>出力結果の例</p>
+<pre class="hljs"><code><div>+----------------+----------+----------+----------+----------+----------+-----------------+
+|Data Type       | 1st test | 2nd test | 3rd test | 4th test | 5th test |Average accuracy |
++----------------+----------+----------+----------+----------+----------+-----------------+
+|raw_data        |    62.22%|    62.22%|    60.00%|    65.00%|    62.78%|           62.44%|
++----------------+----------+----------+----------+----------+----------+-----------------+
+|pca_2_dim       |    56.11%|    53.89%|    56.67%|    56.67%|    57.78%|           56.22%|
++----------------+----------+----------+----------+----------+----------+-----------------+
+|pca_3_dim       |    72.78%|    68.33%|    68.33%|    70.56%|    71.11%|           70.22%|
++----------------+----------+----------+----------+----------+----------+-----------------+
+|pca_4_dim       |    74.44%|    70.56%|    69.44%|    72.78%|    72.22%|           71.89%|
++----------------+----------+----------+----------+----------+----------+-----------------+
+|pca_5_dim       |    73.89%|    68.33%|    69.44%|    71.67%|    73.89%|           71.44%|
++----------------+----------+----------+----------+----------+----------+-----------------+
+|pca_6_dim       |    73.89%|    67.22%|    69.44%|    71.11%|    73.89%|           71.11%|
++----------------+----------+----------+----------+----------+----------+-----------------+
+|pca_7_dim       |    75.00%|    67.78%|    69.44%|    70.56%|    74.44%|           71.44%|
++----------------+----------+----------+----------+----------+----------+-----------------+
+|pca_8_dim       |    74.44%|    66.11%|    70.56%|    71.67%|    72.22%|           71.00%|
++----------------+----------+----------+----------+----------+----------+-----------------+
+|pca_9_dim       |    76.67%|    67.22%|    69.44%|    72.78%|    71.11%|           71.44%|
++----------------+----------+----------+----------+----------+----------+-----------------+
+|standard_scaled |    81.67%|    78.33%|    78.33%|    77.22%|    80.00%|           79.11%|
++----------------+----------+----------+----------+----------+----------+-----------------+
+|minmax_scaled   |    67.22%|    63.89%|    68.33%|    64.44%|    66.11%|           66.00%|
++----------------+----------+----------+----------+----------+----------+-----------------+
+</div></code></pre>
+
+</body>
+</html>
