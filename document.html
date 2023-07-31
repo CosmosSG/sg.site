@@ -227,18 +227,21 @@
 			<p class="side-title">一覧</p>
 			<button class="close-btn">X</button>
 			<a href="#">
+				<div class="side-text side-active">はじめに</div>
+			</a>
+			<a href="#">
 				<div class="side-text">Windows</div>
 			</a>
 			<a href="#">
 				<div class="side-text">Ubuntu</div>
 			</a>
 			<a href="#">
-				<div class="side-text side-active">Logistic Regression</div>
+				<div class="side-text">Logistic Regression</div>
 			</a>
 		</div>
 		<!-- main content -->
 		<div class="main-content">
-			<iframe src="LogisticRegression.html" frameBorder="0"></iframe>
+			<iframe src="start.html" frameBorder="0"></iframe>
 		</div>
   </div>
 
@@ -283,6 +286,8 @@
 					updateIframeSource('Ubuntu.html');
 				} else if (linkText === 'Logistic Regression') {
 					updateIframeSource('LogisticRegression.html');
+				} else if (linkText == 'はじめに') {
+					updateIframeSource('start.html')
 				}
 
 				// Set the clicked link as active
@@ -290,12 +295,12 @@
 			});
 		});
 		// Close button event listener
-    sidebar.addEventListener('click', (event) => {
-      if (event.target === sidebar) {
-        const container = document.querySelector('.container2');
-        container.classList.toggle('slide-out');
-			}
-    });
+		sidebar.addEventListener('click', (event) => {
+		if (event.target === sidebar) {
+			const container = document.querySelector('.container2');
+			container.classList.toggle('slide-out');
+				}
+		});
 		document.addEventListener('DOMContentLoaded', () => {
 			const sidebar = document.querySelector('.sidebar');
 			const closeBtn = document.querySelector('.close-btn');
