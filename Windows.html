@@ -132,14 +132,55 @@
     }
 
     h1 {
-        padding-bottom: 0.3em;
-        line-height: 1.2;
-        border-bottom-width: 1px;
-        border-bottom-style: solid;
+        font-weight: bold;
+        border: solid 10px #0091ff43;
+        border-style: groove;
+        padding: 0.5em;
+        border-radius: 0.2em;
     }
-
     h1, h2, h3 {
         font-weight: normal;
+    }
+
+    h2 {
+        position: relative;
+        font-weight: bold;
+        margin: 0 0 1.5em;
+        padding: 0.5em 0.5em 0.2em 2.1em;
+        border-bottom: 2px solid #0091ff43;
+    }
+    h2:before {
+        content: "□";
+        font-size: 200%;
+        position: absolute;
+        color: #0091ff;
+        top: -0.4em;
+        left: 0.1em;
+        height: 12px;
+        width: 12px;
+    }
+    h2:after {
+        content: "□";
+        font-size: 120%;
+        position: absolute;
+        color: #ffffffc1;
+        top: 0.3em;
+        left: 0;
+        height: 12px;
+        width: 12px;
+    }
+    h3 {
+        padding: .5em .75em;
+        background-color: rgb(29, 37, 49);
+        border-left: 6px solid #0091ff;
+    }
+
+    h4 {
+        padding: .5em .75em;
+        border-top: 2px solid #c7c7c743;
+        border-bottom: 2px solid #c7c7c743;
+        border-top-style: dashed;
+        border-bottom-style: dashed;
     }
 
     table {
@@ -311,9 +352,6 @@
     .hljs-strong {
         font-weight: bold;
     }
-
-
-
     /*
         * Markdown PDF CSS
         */
@@ -381,6 +419,9 @@
             box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
             border-radius: 100px;
         }
+        body {
+            margin: 0em 5em 5em 5em;
+        }
     }
 </style>
 
@@ -428,7 +469,6 @@
 </ul>
 </li>
 </ul>
-<div style="padding-top: 20px;"></div>
 <h2 id="windows-setting">Windows Setting</h2>
 <h3 id="file-explorer">File Explorer</h3>
 <h4 id="%E5%8F%B3%E3%82%AF%E3%83%AA%E3%83%83%E3%82%AF%E3%83%A1%E3%83%8B%E3%83%A5%E3%83%BC%E3%81%AE%E7%B7%A8%E9%9B%86-windows11">右クリックメニューの編集 (Windows11)</h4>
@@ -444,7 +484,6 @@
 </div></code></pre>
 </li>
 </ul>
-<div style="padding-top: 5px;"></div>
 <h3 id="command-prompt-cmd">Command Prompt (cmd)</h3>
 <ul>
 <li>
@@ -455,7 +494,6 @@ C:\Users\UserName
 </div></code></pre>
 </li>
 </ul>
-<div style="padding-top: 5px;"></div>
 <h3 id="other">Other</h3>
 <h4 id="%E3%82%BF%E3%82%B9%E3%82%AF%E3%83%90%E3%83%BC%E3%81%ABbat%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%83%94%E3%83%B3%E6%AD%A2%E3%82%81%E3%81%99%E3%82%8B">タスクバーにbatファイルをピン止めする</h4>
 <ol>
@@ -468,16 +506,11 @@ C:\Users\UserName
 </div></code></pre>
 </li>
 </ol>
-<div style="padding-top: 5px;"></div>
 <h3 id="%E6%99%82%E5%88%BB%E3%82%92%E8%87%AA%E5%8B%95%E3%81%A7%E5%90%88%E3%82%8F%E3%81%9B%E3%82%8Bpc%E5%86%85%E3%81%AE%E3%83%9C%E3%82%BF%E3%83%B3%E9%9B%BB%E6%B1%A0%E3%81%8C%E5%88%87%E3%82%8C%E3%81%A6%E3%82%8B%E6%99%82%E3%81%AE%E5%AF%BE%E5%87%A6">時刻を自動で合わせる（PC内のボタン電池が切れてる時の対処）</h3>
 <details>
 </details>
-<div style="padding-top: 20px;"></div>
 <h2 id="visual-studio-code-vscode">Visual Studio Code (VSCode)</h2>
 <h3 id="install">Install</h3>
-<details>
-<summary>インストール方法を見る</summary>
-<div style="padding-top: 5px;"></div>
 <ol>
 <li>
 <p>インストール用のファイルを<a href="https://code.visualstudio.com/download">Visual Studio Code 公式サイト</a>からダンロードする</p>
@@ -487,45 +520,41 @@ C:\Users\UserName
 </li>
 <li>
 <p>使用許諾契約書に同意する</p>
-<p><img src="material/vscode1.png" alt="1"></p>
+<p><img src="md_/vscode1.png" alt="1"></p>
 </li>
 <li>
 <p>インストール先の指定（特に理由がなければそのまま次に進む）</p>
-<p><img src="material/vscode2.png" alt="2"></p>
+<p><img src="md_/vscode2.png" alt="2"></p>
 </li>
 <li>
 <p>スタートメニューフォルダーの指定（特に理由がなければそのまま次に進む）</p>
-<p><img src="material/vscode3.png" alt="3"></p>
+<p><img src="md_/vscode3.png" alt="3"></p>
 </li>
 <li>
 <p>追加タスクの選択（以下の二つの項目にチェックを追加し、次へ進む）</p>
 <p>・エクスプローラーのファイルコンテキストメニューに [Code で開く] アクションを追加する<br>
 ・エクスプローラーのディレクトリコンテキストメニューに [Code で開く] アクションを追加する</p>
-<p><img src="material/vscode4.png" alt="4"></p>
+<p><img src="md_/vscode4.png" alt="4"></p>
 </li>
 <li>
 <p>確認項目画面で確認できたら「インストール」を押す</p>
 </li>
 </ol>
-</details>
-<div style="padding-top: 5px;"></div>
 <h3 id="%E6%8B%A1%E5%BC%B5%E6%A9%9F%E8%83%BD">拡張機能</h3>
-<details>
-<summary>Markdown</summary>
+<ul>
+<li>
+<p>Markdown</p>
 <ul>
 <li>
 <p>Markdown All in One</p>
 </li>
 <li>
 <p>Markdown PDF</p>
-<details>
-<summary>Error</summary>
-<p>[ Markdown PDF ]</p>
-<p>PDFにExportしようとするとエラーが出る時がある。その場合以下の手順を行う</p>
+<p>[ Error ] PDFにExportしようとするとエラーが出る時がある。その場合以下の手順を行う</p>
 <ol>
 <li>
 <p><code>Ctrl + Shift + p</code> を押して以下のようなバーに打ち込む</p>
-<p><img src="material/markdown1.png" alt="csp"></p>
+<p><img src="md_/markdown1.png" alt="csp"></p>
 <pre class="hljs"><code><div>Preferences: Open User Settings (JSON)
 </div></code></pre>
 </li>
@@ -535,91 +564,87 @@ C:\Users\UserName
 </div></code></pre>
 </li>
 </ol>
-<div style="padding-top: 5px;"></div>
-</details>
 </li>
 <li>
 <p>Markdown Preview Enhanced または Markdown Preview Github Styling</p>
 </li>
 </ul>
+</li>
+</ul>
 </details>
-<div style="padding-top: 20px;"></div>
 <h2 id="c%E8%A8%80%E8%AA%9E">C言語</h2>
 <h3 id="%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89">環境構築</h3>
-<details>
-<summary>環境構築方法を見る</summary>
 <ol>
 <li>
 <p>インストール用のファイルを<a href="https://www.cygwin.com/">Cygwin公式サイト</a>からダウンロードする ( <a href="https://www.cygwin.com/setup-x86_64.exe">setup-x86_64.exe</a> )</p>
 </li>
 <li>
 <p>ダウンロードを押すと以下のような警告が出る時がある。</p>
-<p><img src="material/cyg1.png" alt="1"></p>
+<p><img src="md_/cyg1.png" alt="1"></p>
  <details>
  <summary>警告が出たときはこちら</summary>
- <div style="padding-top: 5px;"></div>
 <ol>
 <li>
 <p>[ ･･･ ] から [ 保存 ] を押す</p>
-<p><img src="material/cyg2.png" alt="2"></p>
+<p><img src="md_/cyg2.png" alt="2"></p>
 </li>
 <li>
 <p>以下の画面の [ 詳細表示 ] を押す</p>
-<p><img src="material/cyg3.png" alt="3"></p>
+<p><img src="md_/cyg3.png" alt="3"></p>
 </li>
 <li>
 <p>[ 保持する ] を押す</p>
-<p><img src="material/cyg4.png" alt="4"></p>
+<p><img src="md_/cyg4.png" alt="4"></p>
 </li>
 <li>
 <p>ダウンロードフォルダから <code>setup-x86_64.exe</code> を見つけ、右クリックをして [ プロパティ ] を押す</p>
- <img src="material/cyg5.png" alt="5" width="800px">
+ <img src="md_/cyg5.png" alt="5" width="800px">
 </li>
 <li>
 <p>下のセキュリティの項目の [ 許可する ] にチェックを入れて [ OK ] を押す</p>
-<p><img src="material/cyg6.png" alt="6"></p>
+<p><img src="md_/cyg6.png" alt="6"></p>
 </li>
 </ol>
  </details>	
 </li>
 <li>
 <p><code>setup-x86_64.exe</code> を実行し、[ 次へ ] を押す</p>
-<p><img src="material/cyg7.png" alt="7"></p>
+<p><img src="md_/cyg7.png" alt="7"></p>
 </li>
 <li>
 <p>インストール手段の選択（特に理由がなければそのまま [ 次へ ] を押す）</p>
-<p><img src="material/cyg8.png" alt="8"></p>
+<p><img src="md_/cyg8.png" alt="8"></p>
 </li>
 <li>
 <p>インストール場所の選択（特に理由がなければそのまま [ 次へ ] を押す）</p>
-<p><img src="material/cyg9.png" alt="9"></p>
+<p><img src="md_/cyg9.png" alt="9"></p>
 </li>
 <li>
 <p>パッケージの置き場所の選択（適当なディレクトリを選択し、[ 次へ ] を押す）</p>
-<p><img src="material/cyg10.png" alt="10"></p>
+<p><img src="md_/cyg10.png" alt="10"></p>
 </li>
 <li>
 <p>接続方法の選択（特に理由がなければそのまま [ 次へ ] を押す）</p>
-<p><img src="material/cyg11.png" alt="11"></p>
+<p><img src="md_/cyg11.png" alt="11"></p>
 </li>
 <li>
 <p>ダウンロードサイトの選択を行う（選択したら [ 次へ ] を押す）</p>
-<p><img src="material/cyg12.png" alt="12"></p>
+<p><img src="md_/cyg12.png" alt="12"></p>
 </li>
 <li>
 <p>Viewを <code>Full</code> にして、Searchに <code>gcc-core</code> と入力する</p>
 </li>
 <li>
 <p>gcc-coreを見つけたら、Skipとなっている項目をクリックし、最新バージョンを選択する<br>※ この時点では <code>11.4.0-1</code> が最新なのでこれを選択する</p>
-<p><img src="material/cyg13.png" alt="13"></p>
+<p><img src="md_/cyg13.png" alt="13"></p>
 </li>
 <li>
 <p>確認画面が出てくるので [ 次へ ] を押す</p>
-<p><img src="material/cyg14.png" alt="14"></p>
+<p><img src="md_/cyg14.png" alt="14"></p>
 </li>
 <li>
 <p>特に理由がなければそのまま [ 完了 ] を押す</p>
-<p><img src="material/cyg15.png" alt="15"></p>
+<p><img src="md_/cyg15.png" alt="15"></p>
 </li>
 <li>
 <p>Cygwin64 terminal を立ち上げ、<code>gcc --version</code> を実行する</p>
@@ -632,53 +657,49 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 <p>このようにバージョンが表示されれば、環境設定完了</p>
 </li>
 </ol>
-</details>
 <p>デフォルトでは <code>C:\cygwin64\home</code> をホームディレクトリとして設定されている。<br>これを、<code>C:\Users</code> にするには以下の手順を行う</p>
-<details>
-<summary>ホームディレクトリの変更方法を見る</summary>
 <ol>
 <li>
 <p>エクスプローラーを開き、Cドライブを開く</p>
- <img src="material/cyg16.png" alt="cygwin" width="800px">
+ <img src="md_/cyg16.png" alt="cygwin" width="800px">
 </li>
 <li>
 <p>上の手順でインストールした場合はここにcygwin64というディレクトリが生成されるため、cygwin64のディレクトリを開く</p>
- <img src="material/cyg17.png" alt="cygwin" width="800px">
+ <img src="md_/cyg17.png" alt="cygwin" width="800px">
 </li>
 <li>
 <p><code>home</code> -&gt; <code>usrname</code>の順に開き、中にあるファイルを <code>C:\Users\username</code> に移動させる</p>
 <details>
 <summary>詳しく見る</summary>
-<div style="padding-top: 5px;"></div>
 <ol>
 <li>
 <p>移動手順1: ファイルを選択</p>
- <img src="material/cyg18.png" alt="cygwin" width="800px">
+ <img src="md_/cyg18.png" alt="cygwin" width="800px">
 </li>
 <li>
 <p>移動手順2: 上のリボンから [ 移動 ] を押し、[ 場所の選択 ] を押す</p>
- <img src="material/cyg19.png" alt="cygwin" width="800px">
+ <img src="md_/cyg19.png" alt="cygwin" width="800px">
 </li>
 <li>
 <p>移動手順3: 下の <code>フォルダー(F):</code> の値が自分のユーザ名になっていることを確認し、[ 移動 ] を押す</p>
- <img src="material/cyg20.png" alt="cygwin">
+ <img src="md_/cyg20.png" alt="cygwin">
 </li>
 </ol>
  </details>
 </li>
 <li>
 <p>空になった <code>C:\cygwin64\home</code> を削除する</p>
- <img src="material/cyg21.png" alt="cygwin" width="800px">
+ <img src="md_/cyg21.png" alt="cygwin" width="800px">
 </li>
 <li>
 <p><code>Win + R</code> でファイル名を指定して実行を開き、cmdと入力した後、<code>Ctrl + Shift</code> を押しながら <code>Enter</code> を押し、管理者権限でコマンドプロンプトを開く</p>
- <img src="material/cyg22.png" alt="cygwin">
+ <img src="md_/cyg22.png" alt="cygwin">
 </li>
 <li>
 <p>管理者権限でコマンドプロンプトを開けたら、以下のコードを入力し、実行する</p>
 <pre class="hljs"><code><div>mklink /D C:\cygwin64\home C:\Users
 </div></code></pre>
- <img src="material/cyg23.png" alt="cygwin" width="800px">
+ <img src="md_/cyg23.png" alt="cygwin" width="800px">
 </li>
 <li>
 <p>このように出力されたら完了</p>
