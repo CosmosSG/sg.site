@@ -132,14 +132,55 @@
     }
 
     h1 {
-        padding-bottom: 0.3em;
-        line-height: 1.2;
-        border-bottom-width: 1px;
-        border-bottom-style: solid;
+        font-weight: bold;
+        border: solid 10px #0091ff43;
+        border-style: groove;
+        padding: 0.5em;
+        border-radius: 0.2em;
     }
-
     h1, h2, h3 {
         font-weight: normal;
+    }
+
+    h2 {
+        position: relative;
+        font-weight: bold;
+        margin: 0 0 1.5em;
+        padding: 0.5em 0.5em 0.2em 2.1em;
+        border-bottom: 2px solid #0091ff43;
+    }
+    h2:before {
+        content: "□";
+        font-size: 200%;
+        position: absolute;
+        color: #0091ff;
+        top: -0.4em;
+        left: 0.1em;
+        height: 12px;
+        width: 12px;
+    }
+    h2:after {
+        content: "□";
+        font-size: 120%;
+        position: absolute;
+        color: #ffffffc1;
+        top: 0.3em;
+        left: 0;
+        height: 12px;
+        width: 12px;
+    }
+    h3 {
+        padding: .5em .75em;
+        background-color: rgb(29, 37, 49);
+        border-left: 6px solid #0091ff;
+    }
+
+    h4 {
+        padding: .5em .75em;
+        border-top: 2px solid #c7c7c743;
+        border-bottom: 2px solid #c7c7c743;
+        border-top-style: dashed;
+        border-bottom-style: dashed;
     }
 
     table {
@@ -311,9 +352,6 @@
     .hljs-strong {
         font-weight: bold;
     }
-
-
-
     /*
         * Markdown PDF CSS
         */
@@ -381,6 +419,9 @@
             box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
             border-radius: 100px;
         }
+        body {
+            margin: 0em 5em 5em 5em;
+        }
     }
 </style>
 
@@ -396,7 +437,7 @@
     });
   </script>
 <!-- omit in toc -->
-<h1 id="ubuntu">Ubuntu</h1>
+<h1 id="ubuntu"><strong>Ubuntu</strong></h1>
 <!-- omit in toc -->
 <h2 id="%E7%9B%AE%E6%AC%A1">目次</h2>
 <ul>
